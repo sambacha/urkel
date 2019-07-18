@@ -3,7 +3,7 @@ node_modules/
 npm-debug.log
 .coveralls.yml
 db/
-
+coverage/
 .nyc_output/
 bench/treedb/
 bench/.DS_Store
