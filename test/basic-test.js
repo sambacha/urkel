@@ -497,6 +497,10 @@ function runTest(name, Tree, Proof) {
   runTest('Optimized', Tree, Proof);
 }
 
+{
+  const {Tree, Proof} = require('../generalTree');
+  runTest('General Tree', Tree, Proof);
+}
 
 {
   const {Tree, Proof} = require('../tree');

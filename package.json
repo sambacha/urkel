@@ -28,6 +28,7 @@
     "test-file": "bmocha --reporter spec"
   },
   "dependencies": {
+    "assert": "^2.0.0",
     "babel-eslint": "^10.0.2",
     "bcrypto": "^4.0.1",
     "bfile": "~0.2.1",

@@ -24,11 +24,13 @@ async function filePathErrorTest() {
 /*
 Test mkdirpSync
 
-*/
+
 async function mkdirpSyncTest() {
   let mfs = new MFS();
-  assert(await mfs.mkdirpSync('', null), null, "Should return null for empty path")
+  assert(() => async mfs.mkdirpSync('', null), null, "Should return null for empty path")
 }
+
+*/
 
 
 
@@ -39,12 +41,9 @@ async function mkdirpSyncTest() {
     it('should not accept files without strings', async () => {
       await filePathErrorTest();
     });
-
-
 /*
     it('should return null for zero length paths', async () => {
       await mkdirpSyncTest();
     });
 */
-
   });

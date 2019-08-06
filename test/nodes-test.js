@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('bsert');
-const File = require('../lib/file.js');
+//const Node = require('../lib/nodes');
 
 /*
 Test chdir for file path not string, should throw error
@@ -17,8 +17,8 @@ async function Test() {
 Test
 Closing and Opening sync
 Cannot repeatedly open and close files
-*/
-async function OpenTest() {
+
+async function Test() {
   var file = new File("/store", 0);
   await file.openSync('/file.txt')
   // Must have string
@@ -37,7 +37,8 @@ async function OpenTest() {
     it('should open files successfully', async () => {
       await OpenTest();
     });
-*/
+
 
 
   });
+*/

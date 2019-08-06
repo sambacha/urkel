@@ -1,11 +1,12 @@
 const randomBytes = require('randombytes');
-const {Tree, Proof} = require('../optimized');
+const {Tree, Proof} = require('../generalTree');
 const bcrypto = require('bcrypto');
 const {SHA256} = bcrypto;
+const assert = require('bsert');
 
 
 function unpack(str, m = -1) {
-    let n = m;
+    let n = m/2;
     let l = str.length;
     if (m == -1) {
       n = l;
@@ -54,13 +55,13 @@ async function setup() {
   //console.log(n2, n1, n);
 
 
-  for (let j = 0; j < 200000; j++) {
-      const k = unpack(j.toString(), 16);
-
-      const v = unpack(JSON.stringify({value: j, id: Date.now()}));
+  for (let j = 0; j < 5000; j++) {
+      let n = Math.floor(Math.random() * 512) + 20
+      const k = randomBytes(n)
+      const v = randomBytes(200)
       await txn.insert(k, v);
   }
-  //const root = await txn.commit();
+  const root = await txn.commit();
   //const snapshot = tree.snapshot(root);
   await tree.close();
   d = new Date();
@@ -77,15 +78,17 @@ async function iteratorTest() {
   var n = d.getMilliseconds();
   var n1 = d.getSeconds();
   var n2 = d.getMinutes();
-  //console.log(n2, n1, n);
+  console.log(n2, n1, n);
 
   let tree = await create("Test_Index");
   const iter = tree.iterator(true, true);
 
   while (await iter.next()) {
-    const {key, v} = await iter;
-    //console.log(pack(key))
-    //console.log(v)
+    const {key, value} = await iter;
+    console.log("Key: " + key.toString('hex'))
+
+    //console.log(key)
+    //console.log("Value: " + value.toString('hex'))
     //console.log('Iterated over item:');
     //console.log('%s: %s', pack(key));
   }
@@ -94,7 +97,7 @@ async function iteratorTest() {
   var n1 = d.getSeconds();
   var n2 = d.getMinutes();
   //console.log(n2, n1, n);
-
+  assert(true)
 }
 
 
@@ -104,11 +107,9 @@ async function iteratorTest() {
 
 
 async function main() {
-    //console.log("Setup")
+    console.log("Setup")
     await setup()
-    //console.log("Iterator Test")
-    //await iteratorTest()
-
+    assert(true)
 }
 
 
@@ -144,6 +145,23 @@ async function main1() {
 
 
 
-//main();
 
-main();
+  describe("General Tree Variable Lengths", function() {
+    this.timeout(5000);
+    it('should parse effectively', async () => {
+      await main();
+
+    });
+
+    it('should read effectively', async () => {
+      await iteratorTest();
+
+    });
+
+
+
+  });
+
+
+
+//main();

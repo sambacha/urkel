@@ -1,43 +1,36 @@
 'use strict';
 
 const assert = require('bsert');
-const File = require('../lib/file.js');
+const Proof = require('../lib/proof.js');
+const bcrypto = require('bcrypto');
+const {BLAKE2b} = bcrypto;
 
 /*
 Test chdir for file path not string, should throw error
 
-async function Test() {
-  var file = new File();
-  assert(true, true, "Always should be right")
-}
-*/
 
 
 /*
 Test
-Closing and Opening sync
-Cannot repeatedly open and close files
+Checking the sanity of the proof
 */
-async function OpenTest() {
-  var file = new File("/store", 0);
-  await file.openSync('/file.txt')
-  // Must have string
-  //assert.throws(await file.openSync('/file.txt'), Error, "Throws Error")
+async function isSaneTest() {
+  var proof = new Proof();
 
-  //
+
+  assert(proof.isSane(BLAKE2b, 256), false)
+  //assert.throws(await file.openSync('/file.txt'), Error, "Throws Error"
 
 }
 
 
 
-  describe("Node", function() {
+  describe("Proof", function() {
     this.timeout(5000);
 
-/*
-    it('should open files successfully', async () => {
-      await OpenTest();
+    it('should test whether hash is correct', async () => {
+      await isSaneTest();
     });
-*/
 
 
   });

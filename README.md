@@ -2,17 +2,17 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/chasesmith95/urkel/badge.svg?branch=master)](https://coveralls.io/github/chasesmith95/urkel?branch=master)
 [![CircleCI](https://circleci.com/gh/chasesmith95/urkel.svg?style=svg)](https://circleci.com/gh/chasesmith95/urkel)
-<!-- 
+<!--
 Code Coverage
-Testing 
+Testing
 CI
 Pull Requests
-Licensing 
+Licensing
 -->
 
 
 
-An optimized and cryptographically provable key-value store.
+An optimized and cryptographically provable key-value store for generalized merkle trees.
 
 ## Design
 
