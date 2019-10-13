@@ -7,13 +7,16 @@
 .mocharc*
 .yarnignore
 README.md
-bench/
 build/
 docs/
 node_modules/
+.circleci/
 npm-debug.log
 package-lock.json
 research/
+DB/
+coverage/
+bench/
 test/
 webpack.*.js
 work/

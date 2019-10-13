@@ -1,6 +1,6 @@
 {
-  "name": "urkel",
-  "version": "0.6.3",
+  "name": "proxima-db",
+  "version": "0.6.19",
   "description": "Cryptographically provable database",
   "keywords": [
     "net",
@@ -9,11 +9,7 @@
   "license": "MIT",
   "repository": "",
   "homepage": "",
-  "bugs": {
-    "url": "https://github.com/handshake-org/urkel/issues"
-  },
-  "author": "Christopher Jeffrey <chjjeffrey@gmail.com>",
-  "main": "./lib/urkel.js",
+  "main": "./proxima.js",
   "nyc": {
     "exclude": [
       "**/errors.js",

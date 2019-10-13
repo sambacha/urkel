@@ -85,7 +85,7 @@ async function iteratorTest() {
 
   while (await iter.next()) {
     const {key, value} = await iter;
-    console.log("Key: " + key.toString('hex'))
+    //console.log("Key: " + key.toString('hex'))
 
     //console.log(key)
     //console.log("Value: " + value.toString('hex'))
