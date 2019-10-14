@@ -15,51 +15,64 @@ class Database {
     this.tables = {}
   }
 
+  contains(name) {
+    return (name in this.tables)
+  }
+
   async get(name) {
-    let table = this.tables[name]
-    if (!table || table.index.isClosed()) {
-      table = await this.open(name)
-      return table
-    } else {
-      return table
-    }
+    let table = await this.open(name)
+    return table
   }
 
   async open(name) {
-    let table = this.tables[name]
-      if (!table) {
-        table = await this.create(name)
+      let table = await this.create(name)
+      if (table.isClosed()) {
         await table.open()
         return table
-      } else if (table.index.isClosed()) {
-        await table.open()
       } else {
         return table
       }
     }
 
+  async batch(entries) {
+    let map = {}
+    let responses = []
+    for (entry in entries) {
+      if (!(entry.name in map)) {
+        map[entry.name] = []
+      }
+      map[entry.name].push(entry)
+    }
+    let response
+    let table
+    for ([key, value] in map) {
+      table = await this.get(key)
+      response = await table.batch(entries)
+      responses = responses.concat(response)
+    }
+    return responses
+  }
+
   async create(name) {
-    if (!this.tables[name]) {
+    if (!this.contains(name)) {
       this.tables[name] = new Table(this.hash, this.bits, this.db_path + name);
+      return this.tables[name]
     }
     return this.tables[name]
   }
 
   async close(name) {
-    let table = this.tables[name]
-    if (!table || table.index.isClosed()) {
-      return name
-    } else {
-      await table.close()
-      return name
+    if (this.contains(name) && this.tables[name].isOpen()) {
+      let response = await this.tables[name].close()
+      return response
     }
+    return true
   }
 
   async remove(name) {
-    if (this.tables[name]) {
-      this.tables[name] = nil
-    }
-    return name
+      let resp = await this.close(name)
+      this.tables =  _.omit(this.tables, name);
+      return resp
    }
 }
 
@@ -104,6 +117,14 @@ async close() {
   return resp
 }
 
+isOpen() {
+  return this.index.isOpen()
+}
+
+isClosed() {
+  return this.index.isClosed()
+}
+
 async get(key, prove = false) {
     let table = this.index
     if (this.batching) {
@@ -121,6 +142,18 @@ async get(key, prove = false) {
     } else {
       return {value: value, proof: proof, root: root}
     }
+}
+
+async batch(entries) {
+  let proofs = []
+  let response
+  this.transaction()
+  for (entry in entries) {
+    response = await this.put(entry.key, entry.value, entry.prove)
+    proofs.push(response)
+  }
+  await this.commit()
+  return proofs
 }
 
 async put(key, value, prove = false) {
