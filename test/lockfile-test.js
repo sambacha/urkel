@@ -6,10 +6,10 @@
 Tests for the MFS
 */
 
-'use strict';
+"use strict";
 
-const assert = require('bsert');
-const LockFile = require('../lib/lockfile.js');
+const assert = require("bsert");
+const LockFile = require("../lib/lockfile.js");
 
 /*
 Test
@@ -18,13 +18,8 @@ async function Test() {
   let lockFile = new LockFile();
 }
 
-
-
-
-
-
-  describe("LockFile", function() {
-    this.timeout(5000);
+describe("LockFile", function () {
+  this.timeout(5000);
 
   /*
     it('should ...', async () => {
@@ -32,8 +27,4 @@ async function Test() {
     });
 
 */
-
-
-
-
-  });
+});

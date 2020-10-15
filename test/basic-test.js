@@ -2,22 +2,22 @@
 /* eslint prefer-arrow-callback: "off" */
 /* eslint no-unused-vars: "off" */
 
-'use strict';
+"use strict";
 
-const assert = require('bsert');
-const crypto = require('crypto');
-const {sha1, sha256} = require('./util/util');
+const assert = require("bsert");
+const crypto = require("crypto");
+const { sha1, sha256 } = require("./util/util");
 
-const FOO1 = sha1.digest(Buffer.from('foo1'));
-const FOO2 = sha1.digest(Buffer.from('foo2'));
-const FOO3 = sha1.digest(Buffer.from('foo3'));
-const FOO4 = sha1.digest(Buffer.from('foo4'));
-const FOO5 = sha1.digest(Buffer.from('foo5'));
+const FOO1 = sha1.digest(Buffer.from("foo1"));
+const FOO2 = sha1.digest(Buffer.from("foo2"));
+const FOO3 = sha1.digest(Buffer.from("foo3"));
+const FOO4 = sha1.digest(Buffer.from("foo4"));
+const FOO5 = sha1.digest(Buffer.from("foo5"));
 
-const BAR1 = Buffer.from('bar1');
-const BAR2 = Buffer.from('bar2');
-const BAR3 = Buffer.from('bar3');
-const BAR4 = Buffer.from('bar4');
+const BAR1 = Buffer.from("bar1");
+const BAR2 = Buffer.from("bar2");
+const BAR3 = Buffer.from("bar3");
+const BAR4 = Buffer.from("bar4");
 
 function random(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -160,14 +160,13 @@ function runTest(name, Tree, Proof) {
       const ss = tree.snapshot();
       const items = [];
 
-      for await (const [key, value] of ss)
-        items.push([key, value]);
+      for await (const [key, value] of ss) items.push([key, value]);
 
       assert.strictEqual(items.length, 3);
       assert.deepStrictEqual(items, [
         [FOO1, BAR1],
         [FOO2, BAR2],
-        [FOO3, BAR3]
+        [FOO3, BAR3],
       ]);
     }
 
@@ -200,14 +199,6 @@ function runTest(name, Tree, Proof) {
     await tree.close();
   }
 
-
-
-
-
-
-
-
-
   async function pummel() {
     const tree = new Tree(sha256, 160);
     const items = [];
@@ -220,19 +211,17 @@ function runTest(name, Tree, Proof) {
     while (set.size < 10000) {
       const key = crypto.randomBytes(tree.bits >>> 3);
       const value = crypto.randomBytes(random(1, 100));
-      const key1 = key.toString('binary');
+      const key1 = key.toString("binary");
 
-      if (set.has(key1))
-        continue;
-
-      key[key.length - 1] ^= 1;
-
-      const key2 = key.toString('binary');
+      if (set.has(key1)) continue;
 
       key[key.length - 1] ^= 1;
 
-      if (set.has(key2))
-        continue;
+      const key2 = key.toString("binary");
+
+      key[key.length - 1] ^= 1;
+
+      if (set.has(key2)) continue;
 
       set.add(key1);
 
@@ -247,8 +236,7 @@ function runTest(name, Tree, Proof) {
     {
       for (const [i, [key, value]] of items.entries()) {
         await batch.insert(key, value);
-        if (i === (items.length >>> 1) - 1)
-          midRoot = batch.rootHash();
+        if (i === (items.length >>> 1) - 1) midRoot = batch.rootHash();
       }
 
       const root = await batch.commit();
@@ -279,8 +267,7 @@ function runTest(name, Tree, Proof) {
     items.reverse();
 
     for (const [i, [key]] of items.entries()) {
-      if (i < (items.length >>> 1))
-        await batch.remove(key);
+      if (i < items.length >>> 1) await batch.remove(key);
     }
 
     {
@@ -296,10 +283,8 @@ function runTest(name, Tree, Proof) {
     for (const [i, [key, value]] of items.entries()) {
       const val = await tree.get(key);
 
-      if (i < (items.length >>> 1))
-        assert.strictEqual(val, null);
-      else
-        assert.bufferEqual(val, value);
+      if (i < items.length >>> 1) assert.strictEqual(val, null);
+      else assert.bufferEqual(val, value);
     }
 
     {
@@ -315,8 +300,7 @@ function runTest(name, Tree, Proof) {
       const expect = [];
 
       for (const [i, item] of items.entries()) {
-        if (i < (items.length >>> 1))
-          continue;
+        if (i < items.length >>> 1) continue;
 
         expect.push(item);
       }
@@ -350,10 +334,8 @@ function runTest(name, Tree, Proof) {
 
       assert.strictEqual(code, 0);
 
-      if (i < (items.length >>> 1))
-        assert.strictEqual(data, null);
-      else
-        assert.bufferEqual(data, value);
+      if (i < items.length >>> 1) assert.strictEqual(data, null);
+      else assert.bufferEqual(data, value);
     }
 
     {
@@ -365,7 +347,7 @@ function runTest(name, Tree, Proof) {
 
     const rand = items.slice(0, items.length >>> 1);
 
-    rand.sort((a, b) => Math.random() >= 0.5 ? 1 : -1);
+    rand.sort((a, b) => (Math.random() >= 0.5 ? 1 : -1));
 
     batch = tree.batch();
 
@@ -413,8 +395,7 @@ function runTest(name, Tree, Proof) {
     {
       const batch = tree1.batch();
 
-      for (const [key, value] of items)
-        await batch.insert(key, value);
+      for (const [key, value] of items) await batch.insert(key, value);
 
       root = await batch.commit();
     }
@@ -439,8 +420,7 @@ function runTest(name, Tree, Proof) {
     {
       const batch = tree1.batch();
 
-      for (const [key, value] of removed)
-        await batch.insert(key, value);
+      for (const [key, value] of removed) await batch.insert(key, value);
 
       fullRoot1 = await batch.commit();
     }
@@ -448,8 +428,7 @@ function runTest(name, Tree, Proof) {
     {
       const batch = tree2.batch();
 
-      for (const [key, value] of remaining)
-        await batch.insert(key, value);
+      for (const [key, value] of remaining) await batch.insert(key, value);
 
       midRoot2 = await batch.commit();
     }
@@ -457,8 +436,7 @@ function runTest(name, Tree, Proof) {
     {
       const batch = tree2.batch();
 
-      for (const [key, value] of removed)
-        await batch.insert(key, value);
+      for (const [key, value] of removed) await batch.insert(key, value);
 
       fullRoot2 = await batch.commit();
     }
@@ -472,48 +450,44 @@ function runTest(name, Tree, Proof) {
     await tree2.close();
   }
 
-  describe(name, function() {
+  describe(name, function () {
     this.timeout(5000);
 
-    it('should test tree', async () => {
+    it("should test tree", async () => {
       await test();
     });
 
-
-    it('should pummel tree', async () => {
+    it("should pummel tree", async () => {
       await pummel();
     });
 
-    it('should test history independence', async () => {
+    it("should test history independence", async () => {
       await history();
     });
   });
 }
 
-
-
 {
-  const {Tree, Proof} = require('../optimized');
-  runTest('Optimized', Tree, Proof);
+  const { Tree, Proof } = require("../optimized");
+  runTest("Optimized", Tree, Proof);
 }
 
 {
-  const {Tree, Proof} = require('../generalTree');
-  runTest('General Tree', Tree, Proof);
+  const { Tree, Proof } = require("../generalTree");
+  runTest("General Tree", Tree, Proof);
 }
 
 {
-  const {Tree, Proof} = require('../tree');
-  runTest('Tree', Tree, Proof);
-}
-
-
-{
-  const {Tree, Proof} = require('../trie');
-  runTest('Trie', Tree, Proof);
+  const { Tree, Proof } = require("../tree");
+  runTest("Tree", Tree, Proof);
 }
 
 {
-  const {Tree, Proof} = require('../radix');
-  runTest('Radix', Tree, Proof);
+  const { Tree, Proof } = require("../trie");
+  runTest("Trie", Tree, Proof);
+}
+
+{
+  const { Tree, Proof } = require("../radix");
+  runTest("Radix", Tree, Proof);
 }

@@ -1,14 +1,10 @@
-
-
 # Proxima DB
 
 <!--
 Inspiration from https://developers.coinbase.com/api/v2?javascript#introduction
 -->
 
-
-## Introduction 
-
+## Introduction
 
 ## Error Codes
 
@@ -26,21 +22,17 @@ Inspiration from https://developers.coinbase.com/api/v2?javascript#introduction
 
 ```
 
-
 ## Opening a Database
 
-
-## Creating a Database 
-
-
+## Creating a Database
 
 ## Basic Requests
 
-### Get 
+### Get
 
-### Put 
+### Put
 
-### Remove 
+### Remove
 
 ### Iterator
 
@@ -50,22 +42,18 @@ Inspiration from https://developers.coinbase.com/api/v2?javascript#introduction
 
 ### Checkout
 
-### Usage 
+### Usage
 
-### Commit 
-
+### Commit
 
 ## Snapshots
 
 ## Compaction
 
-## Synchronous vs Asynchronous 
+## Synchronous vs Asynchronous
 
 ## Performance
 
 ## Proofs
 
 ### Pr
-
-
-

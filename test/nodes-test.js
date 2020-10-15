@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const assert = require('bsert');
+const assert = require("bsert");
 //const Node = require('../lib/nodes');
 
 /*
@@ -11,7 +11,6 @@ async function Test() {
   assert(true, true, "Always should be right")
 }
 */
-
 
 /*
 Test

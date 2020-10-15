@@ -1,13 +1,13 @@
 /*!
- * urkel.js - merkelized tree
+ * zgres.js - merkelized tree
  * Copyright (c) 2018, Christopher Jeffrey (MIT License).
- * https://github.com/handshake-org/urkel
+ * https://github.com/handshake-org/zgres
  */
 
-'use strict';
+"use strict";
 
 /*
  * Expose
  */
 
-module.exports = require('./lib/tree/urkel');
+module.exports = require("./lib/tree/zgres");

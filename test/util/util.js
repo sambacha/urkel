@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const assert = require('assert');
-const crypto = require('crypto');
+const assert = require("assert");
+const crypto = require("crypto");
 
 class SHA1 {
   constructor() {
@@ -9,19 +9,19 @@ class SHA1 {
   }
 
   init() {
-    this.ctx = crypto.createHash('sha1');
+    this.ctx = crypto.createHash("sha1");
     return this;
   }
 
   update(data) {
     assert(Buffer.isBuffer(data));
-    assert(this.ctx, 'Context already finalized.');
+    assert(this.ctx, "Context already finalized.");
     this.ctx.update(data);
     return this;
   }
 
   final() {
-    assert(this.ctx, 'Context already finalized.');
+    assert(this.ctx, "Context already finalized.");
     const hash = this.ctx.digest();
     this.ctx = null;
     return hash;
@@ -46,13 +46,12 @@ class SHA1 {
     ctx.init();
     ctx.update(one);
     ctx.update(two);
-    if (three)
-      ctx.update(three);
+    if (three) ctx.update(three);
     return ctx.final();
   }
 }
 
-SHA1.id = 'SHA1';
+SHA1.id = "SHA1";
 SHA1.size = 20;
 SHA1.bits = 160;
 SHA1.blockSize = 64;
@@ -65,19 +64,19 @@ class SHA256 {
   }
 
   init() {
-    this.ctx = crypto.createHash('sha256');
+    this.ctx = crypto.createHash("sha256");
     return this;
   }
 
   update(data) {
     assert(Buffer.isBuffer(data));
-    assert(this.ctx, 'Context already finalized.');
+    assert(this.ctx, "Context already finalized.");
     this.ctx.update(data);
     return this;
   }
 
   final() {
-    assert(this.ctx, 'Context already finalized.');
+    assert(this.ctx, "Context already finalized.");
     const hash = this.ctx.digest();
     this.ctx = null;
     return hash;
@@ -102,13 +101,12 @@ class SHA256 {
     ctx.init();
     ctx.update(one);
     ctx.update(two);
-    if (three)
-      ctx.update(three);
+    if (three) ctx.update(three);
     return ctx.final();
   }
 }
 
-SHA256.id = 'SHA256';
+SHA256.id = "SHA256";
 SHA256.size = 32;
 SHA256.bits = 256;
 SHA256.blockSize = 64;

@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const {performance} = require('perf_hooks');
+const { performance } = require("perf_hooks");
 
 function mb(num) {
   return Math.floor(num / (1 << 20));
@@ -14,15 +14,15 @@ function memoryUsage() {
     jsHeap: mb(mem.heapUsed),
     jsHeapTotal: mb(mem.heapTotal),
     nativeHeap: mb(mem.rss - mem.heapTotal),
-    external: mb(mem.external)
+    external: mb(mem.external),
   };
 }
 
-function memory(prefix = 'Memory') {
+function memory(prefix = "Memory") {
   const mem = memoryUsage();
 
   console.log(
-    '%s: rss=%dmb, js-heap=%d/%dmb native-heap=%dmb',
+    "%s: rss=%dmb, js-heap=%d/%dmb native-heap=%dmb",
     prefix,
     mem.total,
     mem.jsHeap,
@@ -34,16 +34,16 @@ function memory(prefix = 'Memory') {
 function logMemory() {
   const gc = global.gc;
 
-  if (typeof gc === 'function') {
-    memory('Pre-GC');
+  if (typeof gc === "function") {
+    memory("Pre-GC");
     gc();
   }
 
-  memory('Memory');
+  memory("Memory");
 }
 
 function wait() {
-  return new Promise(r => setTimeout(r, 1000));
+  return new Promise((r) => setTimeout(r, 1000));
 }
 
 function now() {

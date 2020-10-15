@@ -1,5 +1,5 @@
 {
-  "name": "proxima-db",
+  "name": "zgres-db",
   "version": "0.6.24",
   "description": "Cryptographically provable database",
   "keywords": [
@@ -9,7 +9,7 @@
   "license": "MIT",
   "repository": "",
   "homepage": "",
-  "main": "./proxima.js",
+  "main": "./zgres.js",
   "nyc": {
     "exclude": [
       "**/errors.js",

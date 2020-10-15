@@ -2,22 +2,22 @@
 /* eslint prefer-arrow-callback: "off" */
 /* eslint no-unused-vars: "off" */
 
-'use strict';
+"use strict";
 
-const assert = require('bsert');
-const crypto = require('crypto');
-const {sha1, sha256} = require('./util/util');
+const assert = require("bsert");
+const crypto = require("crypto");
+const { sha1, sha256 } = require("./util/util");
 
-const FOO1 = sha1.digest(Buffer.from('foo1'));
-const FOO2 = sha1.digest(Buffer.from('foo2'));
-const FOO3 = sha1.digest(Buffer.from('foo3'));
-const FOO4 = sha1.digest(Buffer.from('foo4'));
-const FOO5 = sha1.digest(Buffer.from('foo5'));
+const FOO1 = sha1.digest(Buffer.from("foo1"));
+const FOO2 = sha1.digest(Buffer.from("foo2"));
+const FOO3 = sha1.digest(Buffer.from("foo3"));
+const FOO4 = sha1.digest(Buffer.from("foo4"));
+const FOO5 = sha1.digest(Buffer.from("foo5"));
 
-const BAR1 = Buffer.from('bar1');
-const BAR2 = Buffer.from('bar2');
-const BAR3 = Buffer.from('bar3');
-const BAR4 = Buffer.from('bar4');
+const BAR1 = Buffer.from("bar1");
+const BAR2 = Buffer.from("bar2");
+const BAR3 = Buffer.from("bar3");
+const BAR4 = Buffer.from("bar4");
 
 function random(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -38,21 +38,21 @@ function runTest(name, Tree, Proof) {
     return proof.verify(root, key, sha256, 160);
   }
 
-
-
-
-
   async function errors() {
-    assert.throws(() => { var tree = new Tree(sha256, 160, 5555)}, Error, "Error thrown")
+    assert.throws(
+      () => {
+        var tree = new Tree(sha256, 160, 5555);
+      },
+      Error,
+      "Error thrown"
+    );
 
-    const tree = new Tree(sha256, 160)
+    const tree = new Tree(sha256, 160);
     await tree.open();
 
     const batch = tree.batch();
 
-
     //assert.throws(async () => { await tree.get("hello")}, Error, "Error thrown")
-
 
     // Insert some values.
     await batch.insert(FOO1, BAR1);
@@ -169,14 +169,13 @@ function runTest(name, Tree, Proof) {
       const ss = tree.snapshot();
       const items = [];
 
-      for await (const [key, value] of ss)
-        items.push([key, value]);
+      for await (const [key, value] of ss) items.push([key, value]);
 
       assert.strictEqual(items.length, 3);
       assert.deepStrictEqual(items, [
         [FOO1, BAR1],
         [FOO2, BAR2],
-        [FOO3, BAR3]
+        [FOO3, BAR3],
       ]);
     }
 
@@ -209,34 +208,26 @@ function runTest(name, Tree, Proof) {
     await tree.close();
   }
 
-
-
-
-
-
-
-  describe(name, function() {
+  describe(name, function () {
     this.timeout(5000);
 
-    it('should test errors', async () => {
+    it("should test errors", async () => {
       await errors();
     });
   });
 }
 
-
-
 {
-  const {Tree, Proof} = require('../optimized');
-  runTest('Optimized', Tree, Proof);
+  const { Tree, Proof } = require("../optimized");
+  runTest("Optimized", Tree, Proof);
 }
 
 {
-  const {Tree, Proof} = require('../trie');
-  runTest('Trie', Tree, Proof);
+  const { Tree, Proof } = require("../trie");
+  runTest("Trie", Tree, Proof);
 }
 
 {
-  const {Tree, Proof} = require('../radix');
-  runTest('Radix', Tree, Proof);
+  const { Tree, Proof } = require("../radix");
+  runTest("Radix", Tree, Proof);
 }

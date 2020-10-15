@@ -6,11 +6,10 @@
 Tests for the MFS
 */
 
-'use strict';
+"use strict";
 
-const assert = require('bsert');
-const File = require('../lib/file.js');
-
+const assert = require("bsert");
+const File = require("../lib/file.js");
 
 /*
 Test chdir for file path not string, should throw error
@@ -21,7 +20,6 @@ async function Test() {
 }
 */
 
-
 /*
 Test
 Closing and Opening sync
@@ -29,8 +27,7 @@ Cannot repeatedly open and close files
 */
 async function CloseTest() {
   var file = new File("/store", 0);
-  await assert.rejects(() => file.closeSync('/file.txt'), Error);
-
+  await assert.rejects(() => file.closeSync("/file.txt"), Error);
 }
 
 /*
@@ -45,16 +42,12 @@ async function OpenTest() {
   //await assert.rejects(() => file2.openSync("/file.txt", ""), Error);
 }
 
-
-
-  describe("File", function() {
-    this.timeout(5000);
-    it('should open files successfully', async () => {
-      await OpenTest();
-    });
-    it('should close files successfully', async () => {
-      await CloseTest();
-    });
-
-
+describe("File", function () {
+  this.timeout(5000);
+  it("should open files successfully", async () => {
+    await OpenTest();
   });
+  it("should close files successfully", async () => {
+    await CloseTest();
+  });
+});
